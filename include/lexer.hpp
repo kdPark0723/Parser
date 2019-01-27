@@ -5,7 +5,6 @@
 
 #include <regex>
 #include <iterator>
-#include <iostream>
 
 template<typename Token_type>
 Parser::Lexer<Token_type>::Lexer(std::string content, Parser::Lexer<Token_type>::Token_pattern & pattern)
@@ -55,14 +54,10 @@ bool Parser::Lexer<Token_type>::scan()
     for (auto it = words_begin; it != words_end; ++it)
     {
         std::size_t index = 1;
-    
-        //std::cout << it->size() << std::endl;
-        for (; index < it->size(); ++index)
-        //{
-            //std::cout << it->str(index) << ", index: " << index << std::endl;
+
+        for (; index < it->size()+1; ++index)
             if (!it->str(index).empty()) // determine which submatch was matched
                 break;
-        //}
     
         result_token.push_back(Token{ it->str(), token_pattern[index-1].second });
     }
@@ -93,7 +88,6 @@ void Parser::Lexer<Token_type>::cal_regex()
     for (auto const& x : token_pattern)
         regex_str += "(" + x.first + ")|"; // parenthesize the submatches
     regex_str.pop_back();
-    std::cout << regex_str << std::endl;
 }
 
 template<typename Token_type>

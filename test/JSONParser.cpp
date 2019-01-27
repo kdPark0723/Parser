@@ -64,10 +64,10 @@ int main()
         {Token_type::value_string, "value_string"},     
         {Token_type::value_number, "value_number"},     
         {Token_type::begin_array, "begin_array"},      
-        {Token_type::literal_false, "begin_object"},     
+        {Token_type::begin_object, "begin_object"},     
         {Token_type::end_array, "end_array"},        
         {Token_type::end_object, "end_object"},       
-        {Token_type::end_object, "name_separator"},   
+        {Token_type::name_separator, "name_separator"},   
         {Token_type::value_separator, "value_separator"},  
         {Token_type::end_of_input, "end_of_input"},    
     };
