@@ -30,6 +30,7 @@ public:
     std::string get_error();
 private:
     std::string content;
+    std::string error_message;
     Token_pattern token_pattern;
     Tokens result_token;
     std::string regex_str;

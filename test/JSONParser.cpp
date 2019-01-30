@@ -58,18 +58,18 @@ int main()
     };
     std::map<Token_type, std::string> name
     {
-        {Token_type::literal_true, "literal_true"},     
-        {Token_type::literal_false, "literal_false"},    
-        {Token_type::literal_null, "literal_null"},     
-        {Token_type::value_string, "value_string"},     
-        {Token_type::value_number, "value_number"},     
-        {Token_type::begin_array, "begin_array"},      
-        {Token_type::begin_object, "begin_object"},     
-        {Token_type::end_array, "end_array"},        
-        {Token_type::end_object, "end_object"},       
-        {Token_type::name_separator, "name_separator"},   
-        {Token_type::value_separator, "value_separator"},  
-        {Token_type::end_of_input, "end_of_input"},    
+        { Token_type::literal_true, "literal_true" },     
+        { Token_type::literal_false, "literal_false" },    
+        { Token_type::literal_null, "literal_null" },     
+        { Token_type::value_string, "value_string" },     
+        { Token_type::value_number, "value_number" },     
+        { Token_type::begin_array, "begin_array" },      
+        { Token_type::begin_object, "begin_object" },     
+        { Token_type::end_array, "end_array" },        
+        { Token_type::end_object, "end_object" },       
+        { Token_type::name_separator, "name_separator" },   
+        { Token_type::value_separator, "value_separator" },  
+        { Token_type::end_of_input, "end_of_input" },    
     };
 
     Lexer<Token_type> lexer{ src, pattern };
@@ -79,7 +79,13 @@ int main()
         const auto tokens = lexer.get_tokkens();
 
         for (auto& i : tokens)
-            std::cout << i.first << "\t\t\t\t" << name[i.second] << std::endl;
+           std::cout << i.first << "\t\t" << name[i.second] << std::endl;
     }
+    else
+    {
+        auto error = lexer.get_error();
+        std::cout << error << std::endl;
+    }
+    
     return 0;
 }
