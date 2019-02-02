@@ -69,20 +69,21 @@ bool Parser::Lexer<Token_type>::scan()
         std::string result = std::regex_replace(content, re, "");
         std::string undefined_token = "";
 
-        bool is_new_token = true;
+        int is_new_token = -1;
         for (char & c : result)
         {
             if (!isblank(c))
             {
-                if (is_new_token)
-                    is_new_token = false;
+                if (is_new_token != 0)
+                {
+                    if (is_new_token == 1)
+                        undefined_token += ", ";
+                    is_new_token = 0;
+                }
                 undefined_token += c;
             }
-            else if (!is_new_token)
-            {
-                is_new_token = true;
-                undefined_token += ", ";
-            }
+            else if (is_new_token == 0)
+                is_new_token = 1;
         }
             
         if (!undefined_token.empty())
