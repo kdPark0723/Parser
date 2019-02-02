@@ -73,17 +73,16 @@ int main()
     };
 
     Lexer<Token_type> lexer{ src, pattern };
-
     if (lexer.scan())
     {
         const auto tokens = lexer.get_tokkens();
 
         for (auto& i : tokens)
-           std::cout << i.first << "\t\t" << name[i.second] << std::endl;
+           std::cout << i.first << "\t\t\t" << name[i.second] << std::endl;
     }
     else
     {
-        auto error = lexer.get_error();
+        const auto& error = lexer.get_error();
         std::cout << error << std::endl;
     }
     

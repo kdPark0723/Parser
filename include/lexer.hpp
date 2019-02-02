@@ -5,7 +5,6 @@
 
 #include <regex>
 #include <iterator>
-#include <iostream>
 
 template<typename Token_type>
 Parser::Lexer<Token_type>::Lexer(std::string content, Parser::Lexer<Token_type>::Token_pattern & pattern)
@@ -68,13 +67,31 @@ bool Parser::Lexer<Token_type>::scan()
 
         // Check undefined token
         std::string result = std::regex_replace(content, re, "");
+        std::string undefined_token = "";
+
+        bool is_new_token = true;
         for (char & c : result)
+        {
             if (!isblank(c))
             {
-                is_success = false;
-                error_message = "ERROR: It have undefined token.";
-                break;
+                if (is_new_token)
+                    is_new_token = false;
+                undefined_token += c;
             }
+            else if (!is_new_token)
+            {
+                is_new_token = true;
+                undefined_token += ", ";
+            }
+        }
+            
+        if (!undefined_token.empty())
+        {
+            is_success = false;
+            error_message = "ERROR: ";
+            error_message += undefined_token;
+            error_message += " is undefined token.";
+        }
     }
     catch(const std::exception& e)
     {
